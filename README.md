@@ -11,7 +11,7 @@ We use a sample open healthcare dataset to:
 
 ## Data Source
 
-- [CMS Chronic Conditions Public Use File (PUF)](https://data.cms.gov/)
+- [CMS Chronic Conditions Public Use File (PUF)](https://www.cms.gov/data-research/statistics-trends-and-reports/basic-stand-alone-medicare-claims-public-use-files/chronic-conditions-puf)
 - Example CSV included in `data/` folder for quick execution
 
 ## Technologies
