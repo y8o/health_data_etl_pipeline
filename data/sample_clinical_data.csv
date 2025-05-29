@@ -1,0 +1,5 @@
+patient_id,lab_test,lab_value,unit
+1,Glucose,180,mg/dL
+2,Glucose,5.5,mmol/L
+3,Cholesterol,200,mg/dL
+4,Glucose,7.0,mmol/L
