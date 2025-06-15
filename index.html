@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Data ETL Pipeline Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    a {
+      color: #2980b9;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Health Data ETL Pipeline Demo</h1>
+
+  <div class="section">
+    <p>This project parses raw healthcare data (CSV), converts clinical conditions into a simplified FHIR-compatible format (JSON), and outputs the structured results for potential EHR integration.</p>
+  </div>
+
+  <div class="section">
+    <h2>📁 Project Links</h2>
+    <ul>
+      <li><a href="https://github.com/y8o/fhir-lite-pipeline" target="_blank">GitHub Repository</a></li>
+      <li><a href="observations.json" download>Download Sample Output (JSON)</a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🛠 Technologies Used</h2>
+    <ul>
+      <li>Python 3</li>
+      <li>Pandas</li>
+      <li>JSON</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📄 Code Snippet</h2>
+    <pre><code># Example FHIR-lite output snippet:
+{
+  "resourceType": "Condition",
+  "id": "patient_00001-condition-cc_diabetes",
+  "subject": {
+    "reference": "Patient/patient_00001"
+  },
+  "code": {
+    "text": "Diabetes"
+  },
+  "clinicalStatus": "active"
+}</code></pre>
+  </div>
+
+  <div class="section">
+    <h2>📸 Screenshot (Optional)</h2>
+    <p>You can add a screenshot here later showing sample data or code execution.</p>
+  </div>
+</body>
+</html>
