@@ -2,74 +2,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Health Data ETL Pipeline Demo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f7f7f7;
-      color: #333;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    a {
-      color: #2980b9;
-    }
-    pre {
-      background-color: #eee;
-      padding: 1rem;
-      overflow-x: auto;
-    }
-    .section {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>FHIR-lite ETL Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        h2 {
+            color: #34495e;
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            display: block;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Health Data ETL Pipeline Demo</h1>
+    <h1>FHIR-lite ETL Pipeline Demo</h1>
 
-  <div class="section">
-    <p>This project parses raw healthcare data (CSV), converts clinical conditions into a simplified FHIR-compatible format (JSON), and outputs the structured results for potential EHR integration.</p>
-  </div>
+    <div class="section">
+        <h2>Overview</h2>
+        <p>This project demonstrates a simple yet powerful ETL (Extract, Transform, Load) pipeline designed to mimic how Electronic Health Records (EHR) data can be standardized and structured for interoperability using a FHIR-lite format.</p>
+    </div>
 
-  <div class="section">
-    <h2>📁 Project Links</h2>
-    <ul>
-      <li><a href="https://github.com/y8o/fhir-lite-pipeline" target="_blank">GitHub Repository</a></li>
-      <li><a href="observations.json" download>Download Sample Output (JSON)</a></li>
-    </ul>
-  </div>
+    <div class="section">
+        <h2>Dataset</h2>
+        <p>The data originates from the <a href="https://www.cms.gov/data-research/statistics-trends-and-reports/basic-stand-alone-medicare-claims-public-use-files/chronic-conditions-puf" target="_blank">CMS Chronic Conditions Public Use File (PUF)</a>. It contains anonymized patient-level data on prevalence of chronic diseases among Medicare beneficiaries.</p>
+        <p>The original file is in CSV format and includes information such as patient ID, conditions (e.g., Diabetes, Ischemic Heart Disease, Rheumatoid Arthritis), and other health metrics.</p>
+    </div>
 
-  <div class="section">
-    <h2>🛠 Technologies Used</h2>
-    <ul>
-      <li>Python 3</li>
-      <li>Pandas</li>
-      <li>JSON</li>
-    </ul>
-  </div>
+    <div class="section">
+        <h2>What the Script Does</h2>
+        <ul>
+            <li>Reads in raw clinical data from CSV files.</li>
+            <li>Cleans and normalizes values, including unit conversions and deduplication.</li>
+            <li>Transforms the data into simplified JSON representations that resemble FHIR (Fast Healthcare Interoperability Resources) standards.</li>
+            <li>Outputs structured JSON to the <code>output/</code> folder, ready for use in an EHR system or further analysis.</li>
+        </ul>
+    </div>
 
-  <div class="section">
-    <h2>📄 Code Snippet</h2>
-    <pre><code># Example FHIR-lite output snippet:
-{
+    <div class="section">
+        <h2>Example Output (Condition Resource)</h2>
+        <pre>{
   "resourceType": "Condition",
-  "id": "patient_00001-condition-cc_diabetes",
+  "id": "patient_00002-condition-cc_ra_oa",
   "subject": {
-    "reference": "Patient/patient_00001"
+    "reference": "Patient/patient_00002"
   },
   "code": {
-    "text": "Diabetes"
+    "text": "Rheumatoid Arthritis / Osteoarthritis"
   },
   "clinicalStatus": "active"
-}</code></pre>
-  </div>
+}</pre>
+    </div>
 
-  <div class="section">
-    <h2>📸 Screenshot (Optional)</h2>
-    <p>You can add a screenshot here later showing sample data or code execution.</p>
-  </div>
+    <div class="section">
+        <h2>Key Technologies</h2>
+        <ul>
+            <li><strong>Python 3</strong>: ETL logic and scripting</li>
+            <li><strong>Pandas</strong>: Data manipulation and normalization</li>
+            <li><strong>JSON</strong>: Output format for FHIR-lite resources</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Why This Matters</h2>
+        <p>Healthcare data often exists in fragmented formats. This project shows how even public-use data can be brought into a structured, standardized format to support interoperability, research, and patient care analytics. It’s a lightweight but effective demonstration of healthcare data engineering principles.</p>
+    </div>
 </body>
 </html>
