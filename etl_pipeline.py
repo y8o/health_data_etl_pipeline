@@ -2,32 +2,45 @@ import pandas as pd
 import json
 import os
 
-def convert_glucose(value, unit):
-    if unit == "mmol/L":
-        return round(value * 18.0182, 2), "mg/dL"
-    return value, unit
+# Load CSV
+df = pd.read_csv("data/2010_Chronic_Conditions_PUF.csv")
 
-df = pd.read_csv("data/sample_clinical_data.csv")
-output = []
-
-for _, row in df.iterrows():
-    lab_value, unit = convert_glucose(row["lab_value"], row["unit"]) if row["lab_test"] == "Glucose" else (row["lab_value"], row["unit"])
-    resource = {
-        "resourceType": "Observation",
-        "id": str(row["patient_id"]),
-        "status": "final",
-        "code": {
-            "text": row["lab_test"]
-        },
-        "valueQuantity": {
-            "value": lab_value,
-            "unit": unit
-        }
-    }
-    output.append(resource)
-
+# Create output folder
 os.makedirs("output", exist_ok=True)
-with open("output/observations.json", "w") as f:
-    json.dump(output, f, indent=2)
 
-print("ETL complete. Output written to output/observations.json")
+# Select condition columns
+condition_map = {
+    "CC_ALZHDMTA": "Alzheimer's or Dementia",
+    "CC_CANCER": "Cancer",
+    "CC_CHF": "Congestive Heart Failure",
+    "CC_CHRNKIDN": "Chronic Kidney Disease",
+    "CC_COPD": "COPD",
+    "CC_DEPRESSN": "Depression",
+    "CC_DIABETES": "Diabetes",
+    "CC_ISCHMCHT": "Ischemic Heart Disease",
+    "CC_OSTEOPRS": "Osteoporosis",
+    "CC_RA_OA": "Rheumatoid Arthritis / Osteoarthritis",
+    "CC_STRKETIA": "Stroke / TIA"
+}
+
+resources = []
+
+for idx, row in df.iterrows():
+    patient_id = f"patient_{idx:05d}"
+
+    for col, condition_name in condition_map.items():
+        if row[col] == 1:
+            condition = {
+                "resourceType": "Condition",
+                "id": f"{patient_id}-condition-{col.lower()}",
+                "subject": { "reference": f"Patient/{patient_id}" },
+                "code": { "text": condition_name },
+                "clinicalStatus": "active"
+            }
+            resources.append(condition)
+
+# Write output
+with open("output/conditions.json", "w") as f:
+    json.dump(resources, f, indent=2)
+
+print(f"✅ ETL complete. {len(resources)} conditions written to output/conditions.json")
